@@ -10,4 +10,13 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+router.get("/:candyId", async (req, res, next) => {
+  try {
+    const selectedCandy = await Candies.findById(req.params.candyId);
+    res.send(selectedCandy);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
