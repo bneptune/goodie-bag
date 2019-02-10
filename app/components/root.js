@@ -1,14 +1,23 @@
 import React from "react";
-import AllCandies from "./AllCandies";
+import { Link } from "react-router-dom";
 
 const Root = () => {
   return (
     <div>
-      <nav>Goodie Bag</nav>
+      <nav>
+        <p>Goodie Bag</p>
+        <hr />
+        <p>
+          <Link to={"/"}>Home</Link>
+        </p>
+        <hr />
+        <p>
+          <Link to={"/candies"}>Candies</Link>
+        </p>
+      </nav>
       <main>
         <h1>Welcome to the Goodie Bag!</h1>
         <p>What a nice home page for your goodies!</p>
-        <AllCandies />
       </main>
     </div>
   );

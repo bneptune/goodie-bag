@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { fetchCandies } from "../store";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 class AllCandies extends Component {
   componentDidMount() {
@@ -53,7 +54,9 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AllCandies);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(AllCandies)
+);
