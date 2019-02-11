@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { fetchCandies } from "../store";
+import { increaseCount, decreaseCount } from "../reducers";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
@@ -7,6 +7,19 @@ class SingleCandy extends Component {
   //   componentDidMount() {
   //     this.props.getCandy();
   //   }
+  constructor() {
+    super();
+    this.handleIncrease = this.handleIncrease.bind(this);
+    this.handleDecrease = this.handleDecrease.bind(this);
+  }
+
+  handleIncrease() {
+    this.props.addOne();
+  }
+
+  handleDecrease() {
+    this.props.minusOne();
+  }
 
   render() {
     const candies = this.props.candies;
@@ -19,9 +32,13 @@ class SingleCandy extends Component {
       <div>
         <h1>{match.name}</h1>
         <h2>How Many Pieces Would You Like?</h2>
-        <p>0</p>
-        <button>More</button>
-        <button>I Don't Do Sugar</button>
+        <p>{this.props.count}</p>
+        <button onClick={this.handleIncrease} type="submit">
+          More
+        </button>
+        <button onClick={this.handleDecrease} type="submit">
+          I Don't Do Sugar
+        </button>
       </div>
     );
   }
@@ -29,7 +46,15 @@ class SingleCandy extends Component {
 
 const mapStateToProps = state => {
   return {
-    candies: state.candies
+    candies: state.candies,
+    count: state.count
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addOne: () => dispatch(increaseCount()),
+    minusOne: () => dispatch(decreaseCount())
   };
 };
 
@@ -39,4 +64,9 @@ const mapStateToProps = state => {
 //   };
 // };
 
-export default withRouter(connect(mapStateToProps)(SingleCandy));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(SingleCandy)
+);
